@@ -16,12 +16,12 @@ services:
     networks:
       - database
 
-  backend:
+  app:
     image: node:14.17-alpine
     volumes:
-      - ./:/home/backend
-    working_dir: /home/backend
-    command: npx ts-node src/index
+      - ./:/home/app
+    working_dir: /home/app
+    command: sh -c "npm install && npm run dev"
     ports:
       - 3000:3000
     depends_on: 
