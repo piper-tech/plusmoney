@@ -1,0 +1,14 @@
+README.md
+CHANGELOG.md
+docker-compose.yml
+Dockerfile
+
+.git
+.gitattributes
+.gitignore
+
+*.log
+npm-debug.log*
+
+node_modules
+coverage
