@@ -2,7 +2,7 @@ import { UserRepository } from "../../repositories/user-repository";
 import { CreateUserDTO } from "./create-user-dto";
 import { User } from "../../entities/user";
 export class CreateUserUseCase {
-    userRepository: UserRepository;
+    private userRepository: UserRepository;
     constructor(userRepository: UserRepository) {
         this.userRepository = userRepository;
     }
