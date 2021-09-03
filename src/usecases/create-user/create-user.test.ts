@@ -1,7 +1,8 @@
-import { UserRepository } from "../../repositories/user-repository"
 import { UserMemoryRepository } from "../../repositories/implementations/memory/user-memory-repository"
+import { UserMysqlRepository } from "../../repositories/implementations/mysql/user-mysql-repository";
 import { CreateUserUseCase } from "./create-user"
 import { CreateUserDTO } from "./create-user-dto"
+import knex from '../../repositories/implementations/mysql/knex';
 
 
 describe('create-user', () => {
@@ -27,4 +28,22 @@ describe('create-user', () => {
             }
         });
     });
+
+    describe('mysql', () => {
+        afterAll(async () => {
+            await knex.destroy();
+        });
+
+        afterEach(async () => {
+            await knex('users').truncate();
+        });
+
+        it('should create a user', async () => {
+            const userMysqlRepository = new UserMysqlRepository();
+            const createUserUseCase = new CreateUserUseCase(userMysqlRepository);
+            const createUserDTO: CreateUserDTO = { name: 'Teste', email: 'teste@gmail.com', password: '123' }
+            const success = await createUserUseCase.execute(createUserDTO);
+            expect(success).toBe(true);
+        })
+    })
 });
