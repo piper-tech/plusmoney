@@ -10,8 +10,8 @@ describe('create-user', () => {
             const userMemoryRepository = new UserMemoryRepository();
             const createUserUseCase = new CreateUserUseCase(userMemoryRepository);
             const createUserDTO: CreateUserDTO = { name: 'Teste', email: 'teste@gmail.com', password: '123' }
-            await createUserUseCase.execute(createUserDTO);
-            expect(userMemoryRepository.users.length).toBe(1);
+            const success = await createUserUseCase.execute(createUserDTO);
+            expect(success).toBe(true);
         })
 
         it('should not allow creating a user with the same email', async () => {
