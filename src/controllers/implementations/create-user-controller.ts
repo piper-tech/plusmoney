@@ -3,6 +3,7 @@ import { HttpResponse } from "../http-response";
 import { CreateUserDTO } from "../../usecases/create-user/create-user-dto";
 import { CreateUserUseCase } from "../../usecases/create-user/create-user";
 import { UserMysqlRepository } from "../../repositories/implementations/mysql/user-mysql-repository";
+import { HttpHelper } from "../helpers/http-helper";
 
 export class CreateUserController implements Controller {
     private createUser = new CreateUserUseCase(new UserMysqlRepository());
@@ -10,17 +11,9 @@ export class CreateUserController implements Controller {
     async handler(request: CreateUserDTO): Promise<HttpResponse> {
         const createUserOrError = await this.createUser.execute(request);
         if(createUserOrError.isLeft()){
-            return {
-                statusCode: 400,
-                body: createUserOrError.value
-            }
+            return HttpHelper.badRequest(createUserOrError.value);
         }
-        return {
-            statusCode: 200,
-            body: {
-                message: 'ok'
-            }
-        }
+        return HttpHelper.created({ message: 'ok' });
     }
 
 }
