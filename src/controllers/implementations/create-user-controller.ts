@@ -8,13 +8,11 @@ export class CreateUserController implements Controller {
     private createUser = new CreateUserUseCase(new UserMysqlRepository());
 
     async handler(request: CreateUserDTO): Promise<HttpResponse> {
-        const success = await this.createUser.execute(request);
-        if(!success){
+        const createUserOrError = await this.createUser.execute(request);
+        if(createUserOrError.isLeft()){
             return {
                 statusCode: 400,
-                body: {
-                    message: 'email already exists'
-                }
+                body: createUserOrError.value
             }
         }
         return {
