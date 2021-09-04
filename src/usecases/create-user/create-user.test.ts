@@ -11,8 +11,8 @@ describe('create-user', () => {
             const userMemoryRepository = new UserMemoryRepository();
             const createUserUseCase = new CreateUserUseCase(userMemoryRepository);
             const createUserDTO: CreateUserDTO = { name: 'Teste', email: 'teste@gmail.com', password: '123' }
-            const success = await createUserUseCase.execute(createUserDTO);
-            expect(success).toBe(true);
+            const response = await createUserUseCase.execute(createUserDTO);
+            expect(response.isRight()).toBeTruthy();
         })
 
         it('should not allow creating a user with the same email', async () => {
@@ -20,8 +20,8 @@ describe('create-user', () => {
             const createUserUseCase = new CreateUserUseCase(userMemoryRepository);
             const createUserDTO: CreateUserDTO = { name: 'Teste', email: 'teste@gmail.com', password: '123' }
             await createUserUseCase.execute(createUserDTO);
-            const success = await createUserUseCase.execute(createUserDTO);
-            expect(success).toBe(false);
+            const error = await createUserUseCase.execute(createUserDTO);
+            expect(error.isLeft()).toBeTruthy();
         });
     });
 
@@ -38,8 +38,8 @@ describe('create-user', () => {
             const userMysqlRepository = new UserMysqlRepository();
             const createUserUseCase = new CreateUserUseCase(userMysqlRepository);
             const createUserDTO: CreateUserDTO = { name: 'Teste', email: 'teste@gmail.com', password: '123' }
-            const success = await createUserUseCase.execute(createUserDTO);
-            expect(success).toBe(true);
+            const response = await createUserUseCase.execute(createUserDTO);
+            expect(response.isRight()).toBeTruthy();
         })
 
         it('should not allow creating a user with the same email', async () => {
@@ -47,8 +47,8 @@ describe('create-user', () => {
             const createUserUseCase = new CreateUserUseCase(userMysqlRepository);
             const createUserDTO: CreateUserDTO = { name: 'Teste', email: 'teste@gmail.com', password: '123' }
             await createUserUseCase.execute(createUserDTO);
-            const success = await createUserUseCase.execute(createUserDTO);
-            expect(success).toBe(false);
+            const error = await createUserUseCase.execute(createUserDTO);
+            expect(error.isLeft()).toBeTruthy();
         });
     })
 });
