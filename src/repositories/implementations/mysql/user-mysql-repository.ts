@@ -10,6 +10,7 @@ export class UserMysqlRepository implements UserRepository {
             await this.users.insert(user);
             return true;
         } catch (error) {
+            console.log(error);
             return false          
         }
     }
@@ -17,6 +18,7 @@ export class UserMysqlRepository implements UserRepository {
         try {
             return await this.users.select({email: email});
         } catch (error) {
+            console.log(error);
             return undefined;
         }
     }
