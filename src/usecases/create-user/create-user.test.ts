@@ -16,16 +16,12 @@ describe('create-user', () => {
         })
 
         it('should not allow creating a user with the same email', async () => {
-            try {
-                const userMemoryRepository = new UserMemoryRepository();
-                const createUserUseCase = new CreateUserUseCase(userMemoryRepository);
-                const createUserDTO: CreateUserDTO = { name: 'Teste', email: 'teste@gmail.com', password: '123' }
-                await createUserUseCase.execute(createUserDTO);
-                await createUserUseCase.execute(createUserDTO);
-                expect(false).toBe(true);
-            } catch (error: any) {
-                expect(error.message).toBe('this email already exists');
-            }
+            const userMemoryRepository = new UserMemoryRepository();
+            const createUserUseCase = new CreateUserUseCase(userMemoryRepository);
+            const createUserDTO: CreateUserDTO = { name: 'Teste', email: 'teste@gmail.com', password: '123' }
+            await createUserUseCase.execute(createUserDTO);
+            const success = await createUserUseCase.execute(createUserDTO);
+            expect(success).toBe(false);
         });
     });
 
@@ -47,16 +43,12 @@ describe('create-user', () => {
         })
 
         it('should not allow creating a user with the same email', async () => {
-            try {
-                const userMysqlRepository = new UserMysqlRepository();
-                const createUserUseCase = new CreateUserUseCase(userMysqlRepository);
-                const createUserDTO: CreateUserDTO = { name: 'Teste', email: 'teste@gmail.com', password: '123' }
-                await createUserUseCase.execute(createUserDTO);
-                await createUserUseCase.execute(createUserDTO);
-                expect(false).toBe(true);
-            } catch (error: any) {
-                expect(error.message).toBe('this email already exists');
-            }
+            const userMysqlRepository = new UserMysqlRepository();
+            const createUserUseCase = new CreateUserUseCase(userMysqlRepository);
+            const createUserDTO: CreateUserDTO = { name: 'Teste', email: 'teste@gmail.com', password: '123' }
+            await createUserUseCase.execute(createUserDTO);
+            const success = await createUserUseCase.execute(createUserDTO);
+            expect(success).toBe(false);
         });
     })
 });
