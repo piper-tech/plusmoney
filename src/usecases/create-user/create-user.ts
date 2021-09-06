@@ -1,8 +1,8 @@
-import { UserRepository } from "@/repositories/user-repository";
-import { UserData } from "@/entities/data-transfer-objects/user-data";
-import { User } from "@/entities/user";
-import { left, right } from "@/shared/either";
-import { EmailAlreadyExistsError } from "@/usecases/errors/email-already-exists-error";
+import { UserRepository } from "@/repositories";
+import { UserData } from "@/entities/data-transfer-objects";
+import { User } from "@/entities";
+import { left, right } from "@/shared";
+import { EmailAlreadyExistsError } from "@/usecases/errors";
 import { CreateUserResponse } from "./create-user-response";
 
 export class CreateUserUseCase {

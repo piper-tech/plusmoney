@@ -1,7 +1,6 @@
-import { UserMemoryRepository } from "@/repositories/implementations/memory/user-memory-repository"
-import { UserMysqlRepository } from "@/repositories/implementations/mysql/user-mysql-repository";
+import { UserMemoryRepository, UserMysqlRepository } from "@/repositories/implementations";
 import { CreateUserUseCase } from "./create-user"
-import { UserData } from "@/entities/data-transfer-objects/user-data"
+import { UserData } from "@/entities/data-transfer-objects";
 import knex from '@/repositories/implementations/mysql/knex';
 
 

@@ -1,9 +1,7 @@
-import { InvalidEmailError } from '@/entities/errors/invalid-email-error';
-import { InvalidNameError } from '@/entities/errors/invalid-name-error';
-import { InvalidPasswordError } from '@/entities/errors/invalid-password-error';
-import { Either } from '@/shared/either';
-import { EmailAlreadyExistsError } from '@/usecases/errors/email-already-exists-error';
-import { UserData } from '@/entities/data-transfer-objects/user-data';
+import { UserData } from '@/entities/data-transfer-objects';
+import { InvalidEmailError, InvalidNameError, InvalidPasswordError } from '@/entities/errors';
+import { Either } from '@/shared';
+import { EmailAlreadyExistsError } from '@/usecases/errors';
 
 export type CreateUserResponse = Either<EmailAlreadyExistsError | 
 InvalidEmailError | 

@@ -1,5 +1,5 @@
-import { UserData } from "@/entities/data-transfer-objects/user-data";
-import { UserRepository } from "@/repositories/user-repository";
+import { UserData } from "@/entities/data-transfer-objects";
+import { UserRepository } from "@/repositories";
 import knex from './knex';
 
 export class UserMysqlRepository implements UserRepository {

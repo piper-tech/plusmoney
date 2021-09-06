@@ -1,9 +1,8 @@
-import { Controller } from "../controller";
-import { HttpResponse } from "../http-response";
-import { UserData } from "@/entities/data-transfer-objects/user-data";
-import { CreateUserUseCase } from "@/usecases/create-user/create-user";
-import { UserMysqlRepository } from "@/repositories/implementations/mysql/user-mysql-repository";
-import { HttpHelper } from "../helpers/http-helper";
+import { Controller, HttpResponse } from "@/controllers";
+import { UserData } from "@/entities/data-transfer-objects";
+import { CreateUserUseCase } from "@/usecases/create-user";
+import { UserMysqlRepository } from "@/repositories/implementations";
+import { HttpHelper } from "@/controllers/helpers";
 
 export class CreateUserController implements Controller {
     private createUser = new CreateUserUseCase(new UserMysqlRepository());
