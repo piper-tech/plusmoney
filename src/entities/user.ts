@@ -1,7 +1,7 @@
 import { Name } from "./value-objects/name";
 import { Email } from "./value-objects/email";
 import { Password } from "./value-objects/password";
-import { left, right, Either } from "../shared/either";
+import { left, right, Either } from "@/shared/either";
 import { InvalidNameError } from "./errors/invalid-name-error";
 import { InvalidEmailError } from "./errors/invalid-email-error";
 import { InvalidPasswordError } from "./errors/invalid-password-error";
