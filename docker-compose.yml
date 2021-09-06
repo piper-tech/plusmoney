@@ -6,9 +6,15 @@ volumes:
 networks:
   database:
 
+x-env_file:
+  &env_file
+  - ./.env
+
 services:
   database:
     image: mysql:8.0
+    env_file:
+      *env_file
     environment: 
       - MYSQL_ALLOW_EMPTY_PASSWORD=yes
     volumes:
@@ -20,6 +26,8 @@ services:
 
   app:
     image: node:14.17-alpine
+    env_file:
+      *env_file
     volumes:
       - ./:/home/app
     working_dir: /home/app
