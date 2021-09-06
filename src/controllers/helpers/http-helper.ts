@@ -1,6 +1,6 @@
-import { HttpResponse, HttpResponseError } from "../http-response"
-import { ServerError } from "../errors/server-error"
-import { BadRequest } from "../errors/bad-request"
+import { HttpResponse, HttpResponseError } from "@/controllers/http-response"
+import { ServerError } from "@/controllers/errors/server-error"
+import { BadRequest } from "@/controllers/errors/bad-request"
 
 export class HttpHelper {
     static ok(data: any): HttpResponse {

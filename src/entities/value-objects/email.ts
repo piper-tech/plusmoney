@@ -1,5 +1,5 @@
 import { right, left, Either } from "@/shared/either";
-import { InvalidEmailError } from "../errors/invalid-email-error";
+import { InvalidEmailError } from "@/entities/errors";
 
 export class Email {
     readonly email: string;
