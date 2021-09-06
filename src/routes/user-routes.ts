@@ -1,6 +1,6 @@
 import { Router, Request, Response } from "express";
-import { CreateUserController } from "../controllers/implementations/create-user-controller";
-import { Controller } from "../controllers/controller";
+import { CreateUserController } from "@/controllers/implementations/create-user-controller";
+import { Controller } from "@/controllers/controller";
 
 function routerAdapter(controller: Controller) {
     return async (req: Request, res: Response) => {
