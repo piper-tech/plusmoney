@@ -1,13 +1,13 @@
-import { User } from "../../../entities/user";
+import { CreateUserDTO } from "../../../usecases/create-user/create-user-dto";
 import { UserRepository } from "../../user-repository";
 
 export class UserMemoryRepository implements UserRepository{
-    users: User[] = [];
-    async save(user: User): Promise<boolean> {
-        this.users.push(user);
+    users: CreateUserDTO[] = [];
+    async save(data: CreateUserDTO): Promise<boolean> {
+        this.users.push(data);
         return true;
     }
-    async findByEmail(email: string): Promise<User | undefined> {
+    async findByEmail(email: string): Promise<CreateUserDTO | undefined> {
         return this.users.find(user => user.email === email);
     }
 }
