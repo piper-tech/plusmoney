@@ -1,5 +1,5 @@
 import { UserRepository } from "../../repositories/user-repository";
-import { CreateUserDTO } from "./create-user-dto";
+import { UserData } from "../../entities/data-transfer-objects/user-data";
 import { User } from "../../entities/user";
 import { left, right } from "../../shared/either";
 import { EmailAlreadyExistsError } from "../errors/email-already-exists-error";
@@ -11,7 +11,7 @@ export class CreateUserUseCase {
         this.userRepository = userRepository;
     }
 
-    async execute(data: CreateUserDTO): Promise<CreateUserResponse> {
+    async execute(data: UserData): Promise<CreateUserResponse> {
         const userOrError = User.create(data);
         if(userOrError.isLeft()){
             return left(userOrError.value);

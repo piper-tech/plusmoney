@@ -1,6 +1,6 @@
-import { CreateUserDTO } from "../usecases/create-user/create-user-dto";
+import { UserData } from "../entities/data-transfer-objects/user-data";
 
 export interface UserRepository {
-    save(data: CreateUserDTO): Promise<boolean>;
-    findByEmail(email: string): Promise<CreateUserDTO | undefined>;
+    save(data: UserData): Promise<boolean>;
+    findByEmail(email: string): Promise<UserData | undefined>;
 }

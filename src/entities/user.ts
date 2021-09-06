@@ -5,7 +5,7 @@ import { left, right, Either } from "../shared/either";
 import { InvalidNameError } from "./errors/invalid-name-error";
 import { InvalidEmailError } from "./errors/invalid-email-error";
 import { InvalidPasswordError } from "./errors/invalid-password-error";
-import { CreateUserDTO } from "../usecases/create-user/create-user-dto";
+import { UserData } from "./data-transfer-objects/user-data";
 
 export class User {
     readonly name: Name;
@@ -18,7 +18,7 @@ export class User {
         this.password = password;
     }
 
-    static create(data: CreateUserDTO): Either<InvalidNameError | InvalidEmailError | InvalidPasswordError, User> {
+    static create(data: UserData): Either<InvalidNameError | InvalidEmailError | InvalidPasswordError, User> {
         const nameOrError = Name.create(data.name);
         const emailOrError = Email.create(data.email);
         const passwordOrError = Password.create(data.password);
