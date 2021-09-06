@@ -12,12 +12,16 @@ export class CreateUserUseCase {
     }
 
     async execute(data: CreateUserDTO): Promise<CreateUserResponse> {
-        const user = new User(data.name, data.email, data.password);
-        const exists = await this.userRepository.findByEmail(user.email);
-        if(exists){
-            return left(new EmailAlreadyExistsError(user.email));
+        const userOrError = User.create(data);
+        if(userOrError.isLeft()){
+            return left(userOrError.value);
         }
-        await this.userRepository.save(user);
+        const user = userOrError.value;
+        const exists = await this.userRepository.findByEmail(user.email.value);
+        if(exists){
+            return left(new EmailAlreadyExistsError(user.email.value));
+        }
+        await this.userRepository.save(data);
         return right(data);
     }
 }
