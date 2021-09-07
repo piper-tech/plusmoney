@@ -3,7 +3,7 @@ import { InvalidEmailError, InvalidNameError, InvalidPasswordError } from '@/ent
 import { Either } from '@/shared';
 import { EmailAlreadyExistsError } from '@/usecases/errors';
 
-export type CreateUserResponse = Either<EmailAlreadyExistsError | 
-InvalidEmailError | 
-InvalidNameError | 
+export type CreateUserResponse = Either<EmailAlreadyExistsError |
+InvalidEmailError |
+InvalidNameError |
 InvalidPasswordError, UserData>
