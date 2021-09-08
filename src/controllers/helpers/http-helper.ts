@@ -1,5 +1,5 @@
 import { HttpResponse, HttpResponseError } from '@/controllers';
-import { ServerError, BadRequest } from '@/controllers/errors';
+import { ServerError, BadRequest, Unauthorized } from '@/controllers/errors';
 
 export class HttpHelper {
   static ok(data: any): HttpResponse {
@@ -29,9 +29,11 @@ export class HttpHelper {
       body: new Unauthorized(error.message)
     };
   }
+
+  static serverError(): HttpResponseError {
     return {
       statusCode: 500,
-      body: new ServerError(reason)
+      body: new ServerError()
     };
   }
 }
