@@ -23,7 +23,12 @@ export class HttpHelper {
     };
   }
 
-  static serverError(reason: string): HttpResponseError {
+  static unauthorized(error: Error): HttpResponseError {
+    return {
+      statusCode: 401,
+      body: new Unauthorized(error.message)
+    };
+  }
     return {
       statusCode: 500,
       body: new ServerError(reason)
