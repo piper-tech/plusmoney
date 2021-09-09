@@ -1,8 +1,9 @@
 import { AuthenticateUserResponse } from '@/usecases/auth-user';
-import { AuthenticationProvider, AuthData } from '@/providers';
+import { AuthenticationProvider } from '@/providers';
 import { UserRepository } from '@/repositories';
 import { InvalidCredentials } from '../errors';
 import { right, left } from '@/shared';
+import { AuthUserData } from './auth-user-data';
 
 export class AuthenticateUserUseCase {
   private authenticationProvider: AuthenticationProvider;
@@ -13,7 +14,7 @@ export class AuthenticateUserUseCase {
     this.userRepository = userRepository;
   }
 
-  async execute(data: AuthData): Promise<AuthenticateUserResponse> {
+  async execute(data: AuthUserData): Promise<AuthenticateUserResponse> {
     const user = await this.userRepository.findByEmail(data.email);
     if (!user) {
       return left(new InvalidCredentials());
@@ -21,7 +22,7 @@ export class AuthenticateUserUseCase {
     if (user.password !== data.password) {
       return left(new InvalidCredentials());
     }
-    const authResponse = await this.authenticationProvider.auth(data);
+    const authResponse = await this.authenticationProvider.auth(data.email);
     return right(authResponse);
   }
 }
