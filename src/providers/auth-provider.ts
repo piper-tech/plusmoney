@@ -1,13 +1,8 @@
-export interface AuthData {
-  email: string;
-  password: string;
-}
-
 export interface AuthResponse {
   accessToken: string;
 }
 
 export interface AuthenticationProvider {
-  auth(authData: AuthData): Promise<AuthResponse>
-  verify(token: string): Promise<boolean>
+  auth(email: string): Promise<AuthResponse>
+  verify(accessToken: string): Promise<boolean>
 }
