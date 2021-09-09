@@ -10,4 +10,13 @@ export class AuthenticationJwt implements AuthenticationProvider {
     };
     return authResponse;
   }
+
+  async verify(token: string): Promise<boolean> {
+    try {
+      await jwt.verify(token, SECRET_TOKEN);
+      return true;
+    } catch (error) {
+      return false;
+    }
+  }
 }

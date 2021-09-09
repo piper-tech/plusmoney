@@ -9,4 +9,5 @@ export interface AuthResponse {
 
 export interface AuthenticationProvider {
   auth(authData: AuthData): Promise<AuthResponse>
+  verify(token: string): Promise<boolean>
 }
