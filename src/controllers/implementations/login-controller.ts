@@ -1,14 +1,13 @@
 import { Controller, HttpResponse } from '@/controllers';
-import { AuthData } from '@/providers/auth-provider';
-import { AuthenticateUserUseCase } from '@/usecases/auth-user';
+import { AuthenticateUserUseCase, AuthUserData } from '@/usecases/auth-user';
 import { UserMysqlRepository } from '@/repositories/implementations';
-import { AuthenticationJwt } from '@/providers/implementations/auth-jwt';
+import { AuthenticationJwt } from '@/providers/implementations';
 import { HttpHelper } from '@/controllers/helpers';
 
-export class AuthenticateUserController implements Controller {
+export class LoginController implements Controller {
   private authenticateUser = new AuthenticateUserUseCase(new AuthenticationJwt(), new UserMysqlRepository());
 
-  async handler(request: AuthData): Promise<HttpResponse> {
+  async handler(request: AuthUserData): Promise<HttpResponse> {
     try {
       const authResponseOrError = await this.authenticateUser.execute(request);
       if (authResponseOrError.isLeft()) {
