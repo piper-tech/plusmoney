@@ -20,6 +20,7 @@
   },
   "homepage": "https://github.com/piper-tech/plusmoney#readme",
   "devDependencies": {
+    "@types/cors": "^2.8.12",
     "@types/jest": "^27.0.1",
     "@types/jsonwebtoken": "^8.5.5",
     "@types/module-alias": "^2.0.1",
