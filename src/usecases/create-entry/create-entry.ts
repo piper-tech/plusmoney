@@ -11,7 +11,7 @@ export class CreateEntryUseCase {
   }
 
   async execute(data: EntryData): Promise<CreateEntryResponse> {
-    const entryOrError = Entry.create(data.description, data.value, data.entryDate);
+    const entryOrError = Entry.create(data.description, data.value, data.date);
     if (entryOrError.isLeft()) {
       return left(entryOrError.value);
     }
