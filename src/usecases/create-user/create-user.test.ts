@@ -29,7 +29,7 @@ describe('create-user', () => {
     });
 
     afterEach(async () => {
-      await knex('users').truncate();
+      await knex('users').delete();
     });
 
     it('should create a user', async () => {

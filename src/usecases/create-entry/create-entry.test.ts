@@ -6,7 +6,7 @@ import knex from '@/repositories/implementations/mysql/knex';
 describe('create-entry', () => {
   describe('in memory', () => {
     it('should create a entry', async () => {
-      const entryData: EntryData = { description: 'Teste', value: 10, date: new Date() };
+      const entryData: EntryData = { description: 'Teste', value: 10, date: new Date(), userId: 1 };
       const entryMemoryRepository = new EntryMemoryRepository();
       const createEntryUseCase = new CreateEntryUseCase(entryMemoryRepository);
       const success = await createEntryUseCase.execute(entryData);
@@ -14,7 +14,7 @@ describe('create-entry', () => {
     });
 
     it('should not allow creating a entry with invalid data', async () => {
-      const entryData: EntryData = { description: '', value: 0, date: new Date() };
+      const entryData: EntryData = { description: '', value: 0, date: new Date(), userId: 1 };
       const entryMemoryRepository = new EntryMemoryRepository();
       const createEntryUseCase = new CreateEntryUseCase(entryMemoryRepository);
       const success = await createEntryUseCase.execute(entryData);
@@ -28,11 +28,11 @@ describe('create-entry', () => {
     });
 
     afterEach(async () => {
-      await knex('users').truncate();
+      await knex('entries').delete();
     });
 
     it('should create a entry', async () => {
-      const entryData: EntryData = { description: 'Teste', value: 10, date: new Date() };
+      const entryData: EntryData = { description: 'Teste', value: 10, date: new Date(), userId: 1 };
       const entryMysqlRepository = new EntryMysqlRepository();
       const createEntryUseCase = new CreateEntryUseCase(entryMysqlRepository);
       const success = await createEntryUseCase.execute(entryData);
@@ -40,7 +40,7 @@ describe('create-entry', () => {
     });
 
     it('should not allow creating a entry with invalid data', async () => {
-      const entryData: EntryData = { description: '', value: 0, date: new Date() };
+      const entryData: EntryData = { description: '', value: 0, date: new Date(), userId: 1 };
       const entryMysqlRepository = new EntryMysqlRepository();
       const createEntryUseCase = new CreateEntryUseCase(entryMysqlRepository);
       const success = await createEntryUseCase.execute(entryData);
