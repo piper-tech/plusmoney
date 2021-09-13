@@ -11,6 +11,6 @@ export class CreateEntryController implements Controller {
     if (createEntryOrError.isLeft()) {
       return HttpHelper.badRequest(createEntryOrError.value);
     }
-    return HttpHelper.ok({ message: 'ok' });
+    return HttpHelper.created({ message: 'ok' });
   }
 }
