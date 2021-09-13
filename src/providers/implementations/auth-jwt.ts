@@ -4,7 +4,7 @@ const SECRET_TOKEN = process.env.SECRET_TOKEN as string;
 
 export class AuthenticationJwt implements AuthenticationProvider {
   async auth(email: string): Promise<AuthResponse> {
-    const token = jwt.sign({ email: email }, SECRET_TOKEN, { expiresIn: 120 });
+    const token = jwt.sign({ email: email }, SECRET_TOKEN, { expiresIn: 3600 });
     const authResponse: AuthResponse = {
       accessToken: token
     };

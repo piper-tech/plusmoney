@@ -2,10 +2,10 @@ import { Knex } from 'knex';
 
 export async function up(knex: Knex): Promise<void> {
   return knex.schema.createTable('users', (table) => {
-    table.increments('id');
-    table.text('name');
-    table.text('email').notNullable();
-    table.text('password').notNullable();
+    table.increments('id').primary();
+    table.string('name');
+    table.string('email').notNullable();
+    table.string('password').notNullable();
   });
 }
 
