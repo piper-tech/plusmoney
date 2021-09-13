@@ -15,6 +15,9 @@ export class CreateEntryUseCase {
     if (entryOrError.isLeft()) {
       return left(entryOrError.value);
     }
+    if (!data.userId) {
+      return left(new Error('user id not provided'));
+    }
     await this.entryRepository.save(data);
     return right(data);
   }
