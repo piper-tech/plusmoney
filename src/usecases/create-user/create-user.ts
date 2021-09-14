@@ -22,6 +22,7 @@ export class CreateUserUseCase {
       return left(new EmailAlreadyExistsError(user.email.value));
     }
     await this.userRepository.save(data);
+    delete data.password;
     return right(data);
   }
 }

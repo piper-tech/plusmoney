@@ -21,7 +21,7 @@ export class User {
   static create(data: UserData): Either<InvalidNameError | InvalidEmailError | InvalidPasswordError, User> {
     const nameOrError = Name.create(data.name);
     const emailOrError = Email.create(data.email);
-    const passwordOrError = Password.create(data.password);
+    const passwordOrError = Password.create(data.password as string);
     if (nameOrError.isLeft()) {
       return left(nameOrError.value);
     }
