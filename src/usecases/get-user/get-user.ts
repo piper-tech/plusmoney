@@ -12,6 +12,9 @@ export class GetUserUseCase {
   }
 
   async execute(data: GetUserData): Promise<GetUserResponse> {
+    if (!data.email) {
+      return left(new Error('missing params'));
+    }
     const user = await this.userRepository.findByEmail(data.email);
     if (!user) {
       return left(new UserNotFoundError());
