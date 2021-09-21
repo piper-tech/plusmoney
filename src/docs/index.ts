@@ -42,6 +42,39 @@ export default {
           }
         }
       }
+    },
+    '/login': {
+      post: {
+        tags: ['Login/Logup'],
+        summary: 'Rota de autenticação do usuário',
+        description: 'Os tokens de autenticação gerados duram 1 hora.',
+        requestBody: {
+          required: true,
+          content: {
+            'application/json': {
+              schema: {
+                $ref: '#/schemas/loginParams'
+              }
+            }
+          }
+        },
+        responses: {
+          200: {
+            description: 'Sucesso',
+            content: {
+              'application/json': {
+                $ref: '#/schemas/accessToken'
+              }
+            }
+          },
+          400: {
+            $ref: '#/components/badRequest'
+          },
+          401: {
+            $ref: '#/components/unauthorized'
+          }
+        }
+      }
     }
   },
   schemas: {
@@ -60,6 +93,21 @@ export default {
       },
       example: {
         name: 'Mario',
+        email: 'mario@email.com',
+        password: '123'
+      }
+    },
+    loginParams: {
+      type: 'object',
+      properties: {
+        email: {
+          type: 'string'
+        },
+        password: {
+          type: 'string'
+        }
+      },
+      example: {
         email: 'mario@email.com',
         password: '123'
       }
@@ -91,6 +139,16 @@ export default {
   components: {
     badRequest: {
       description: 'Requisição inválida',
+      content: {
+        'application/json': {
+          schema: {
+            $ref: '#/schemas/error'
+          }
+        }
+      }
+    },
+    unauthorized: {
+      description: 'Não autorizado',
       content: {
         'application/json': {
           schema: {
