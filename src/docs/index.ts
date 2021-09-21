@@ -9,14 +9,20 @@ export default {
     url: 'http://localhost:3000',
     description: 'Servidor local'
   }],
-  tags: [{
-    name: 'Login/Logup',
-    description: 'Rotas de Login/Logup'
-  }],
+  tags: [
+    {
+      name: 'login/logup',
+      description: 'Rotas de login/logup'
+    },
+    {
+      name: 'users',
+      description: 'Rotas de usuário'
+    }
+  ],
   paths: {
     '/logup': {
       post: {
-        tags: ['Login/Logup'],
+        tags: ['login/logup'],
         summary: 'Rota de criação e autenticação do usuário',
         requestBody: {
           required: true,
@@ -45,7 +51,7 @@ export default {
     },
     '/login': {
       post: {
-        tags: ['Login/Logup'],
+        tags: ['login/logup'],
         summary: 'Rota de autenticação do usuário',
         description: 'Os tokens de autenticação gerados duram 1 hora.',
         requestBody: {
@@ -64,6 +70,41 @@ export default {
             content: {
               'application/json': {
                 $ref: '#/schemas/accessToken'
+              }
+            }
+          },
+          400: {
+            $ref: '#/components/badRequest'
+          },
+          401: {
+            $ref: '#/components/unauthorized'
+          }
+        }
+      }
+    },
+    '/users': {
+      get: {
+        tags: ['users'],
+        summary: 'Rota para retornar usuário',
+        security: [
+          {
+            bearerAuth: []
+          }
+        ],
+        parameters: [{
+          in: 'query',
+          name: 'email',
+          description: 'Email do usuário',
+          schema: {
+            type: 'string'
+          }
+        }],
+        responses: {
+          200: {
+            description: 'Sucesso',
+            content: {
+              'application/json': {
+                $ref: '#/schemas/user'
               }
             }
           },
@@ -134,9 +175,31 @@ export default {
         error: 'error message'
       },
       required: ['error']
+    },
+    user: {
+      type: 'object',
+      properties: {
+        id: {
+          type: 'string'
+        },
+        name: {
+          type: 'string'
+        },
+        email: {
+          type: 'string'
+        }
+      }
     }
   },
   components: {
+    securitySchemes: {
+      bearerAuth: {
+        type: 'http',
+        scheme: 'bearer',
+        name: 'authorization',
+        bearerFormat: 'JWT'
+      }
+    },
     badRequest: {
       description: 'Requisição inválida',
       content: {
