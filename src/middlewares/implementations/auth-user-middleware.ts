@@ -16,7 +16,14 @@ export class AuthUserMiddleware implements Middleware {
     if (!accessToken) {
       return HttpHelper.unauthorized(new Unauthorized('unauthorized'));
     }
-    const authenticated = await this.authenticationProvider.verify(accessToken);
+    const [bearer, token] = accessToken.split(' ');
+    if (!bearer || bearer.toLowerCase() !== 'bearer') {
+      return HttpHelper.unauthorized(new Unauthorized('unauthorized'));
+    }
+    if (!token) {
+      return HttpHelper.unauthorized(new Unauthorized('unauthorized'));
+    }
+    const authenticated = await this.authenticationProvider.verify(token);
 
     if (!authenticated) {
       return HttpHelper.unauthorized(new Unauthorized('unauthorized'));
