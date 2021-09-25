@@ -3,6 +3,6 @@ export interface AuthResponse {
 }
 
 export interface AuthenticationProvider {
-  auth(email: string): Promise<AuthResponse>
+  auth(id: number): Promise<AuthResponse>
   verify(accessToken: string): Promise<boolean>
 }
