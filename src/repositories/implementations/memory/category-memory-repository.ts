@@ -1,11 +1,12 @@
 import { CategoryData } from '@/entities/data-transfer-objects';
-import { CategoryRepository } from '@/repositories';
+import { CategoryRepository, SaveResponse } from '@/repositories/category-repository';
+import { right } from '@/shared';
 
 export class CategoryMemoryRepository implements CategoryRepository {
   private categoryData: CategoryData[] = [];
 
-  async save(data: CategoryData): Promise<boolean> {
+  async save(data: CategoryData): Promise<SaveResponse> {
     this.categoryData.push(data);
-    return true;
+    return right(data);
   }
 }
