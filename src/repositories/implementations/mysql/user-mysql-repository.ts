@@ -17,6 +17,9 @@ export class UserMysqlRepository implements UserRepository {
   async findByEmail(email: string): Promise<FindByEmailResponse> {
     try {
       const user = await knex('users').select().where({ email: email });
+    if (!user[0]) {
+      return left(new FindByEmailError('user not found'));
+    }
       return right(user[0]);
     } catch (error) {
       console.log(error);
