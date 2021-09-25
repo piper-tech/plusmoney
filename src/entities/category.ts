@@ -10,7 +10,7 @@ export class Category {
 
   static create(description: string): Either<InvalidCategoryError, Category> {
     if (!description) {
-      left(new InvalidCategoryError());
+      return left(new InvalidCategoryError());
     }
     return right(new Category(description));
   }
