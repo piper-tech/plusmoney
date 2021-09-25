@@ -15,10 +15,11 @@ export class GetUserUseCase {
     if (!data.email) {
       return left(new Error('missing params'));
     }
-    const user = await this.userRepository.findByEmail(data.email);
-    if (!user) {
+    const userOrError = await this.userRepository.findByEmail(data.email);
+    if (userOrError.isLeft()) {
       return left(new UserNotFoundError());
     }
+    const user = userOrError.value;
     delete user.password;
     return right(user);
   }
