@@ -9,9 +9,12 @@ describe('create-category', () => {
       const userData: UserData = { email: 'teste', name: 'teste', password: '123' };
       const userMemoryRepository = new UserMemoryRepository();
       const createUserUseCase = new CreateUserUseCase(userMemoryRepository);
-      await createUserUseCase.execute(userData);
-
-      const categoryData: CategoryData = { idUser: '1', description: 'aluguel' };
+      const createdUser = await createUserUseCase.execute(userData);
+      if (createdUser.isLeft()) {
+        return;
+      }
+      const user = createdUser.value;
+      const categoryData: CategoryData = { userId: user.id as number, description: 'aluguel' };
       const categoryMemoryRepository = new CategoryMemoryRepository();
       const createCategoryUseCase = new CreateCategoryUseCase(categoryMemoryRepository);
       const success = await createCategoryUseCase.execute(categoryData);
