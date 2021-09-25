@@ -17,11 +17,14 @@ export class CreateUserUseCase {
       return left(userOrError.value);
     }
     const user = userOrError.value;
-    const exists = await this.userRepository.findByEmail(user.email.value);
-    if (exists) {
+    const userExists = await this.userRepository.findByEmail(user.email.value);
+    if (userExists.isRight()) {
       return left(new EmailAlreadyExistsError(user.email.value));
     }
-    await this.userRepository.save(data);
-    return right(data);
+    const createdOrError = await this.userRepository.save(data);
+    if (createdOrError.isLeft()) {
+      return left(createdOrError.value);
+    }
+    return right(createdOrError.value);
   }
 }
