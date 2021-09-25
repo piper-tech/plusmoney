@@ -16,6 +16,9 @@ export class CreateCategoryUseCase {
     if (categoryOrError.isLeft()) {
       return left(categoryOrError.value);
     }
+    if (!data.userId) {
+      return left(new Error('user id not provided'));
+    }
     await this.categoryRepository.save(data);
     return right(data);
   }
