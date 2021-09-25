@@ -6,6 +6,7 @@ import { left, right } from '@/shared';
 export class UserMemoryRepository implements UserRepository {
     users: UserData[] = []
     async save(data: UserData): Promise<SaveResponse> {
+      data.id = this.users.length + 1;
       this.users.push(data);
       return right(data);
     }
