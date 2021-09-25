@@ -15,14 +15,15 @@ export class AuthenticateUserUseCase {
   }
 
   async execute(data: AuthUserData): Promise<AuthenticateUserResponse> {
-    const user = await this.userRepository.findByEmail(data.email);
-    if (!user) {
-      return left(new InvalidCredentials());
+    const userOrError = await this.userRepository.findByEmail(data.email);
+    if (userOrError.isLeft()) {
+      return left(userOrError.value);
     }
+    const user = userOrError.value;
     if (user.password !== data.password) {
       return left(new InvalidCredentials());
     }
-    const authResponse = await this.authenticationProvider.auth(data.email);
+    const authResponse = await this.authenticationProvider.auth(user.id as number);
     return right(authResponse);
   }
 }
