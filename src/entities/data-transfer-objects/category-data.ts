@@ -1,4 +1,4 @@
 export interface CategoryData {
-  idUser: string;
+  userId: number;
   description: string;
 }
