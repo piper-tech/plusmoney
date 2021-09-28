@@ -3,4 +3,5 @@ export interface EntryData {
   value: number;
   date: Date;
   userId: number;
+  type?: string;
 }

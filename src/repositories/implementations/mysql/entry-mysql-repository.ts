@@ -21,6 +21,13 @@ export class EntryMysqlRepository implements EntryRepository {
     if (entries.length === 0) {
       return left(new Error());
     }
+    entries.forEach(entry => {
+      if (entry.value < 0) {
+        entry.type = 'output';
+      } else {
+        entry.type = 'entry';
+      }
+    });
     return right(entries);
   }
 }
