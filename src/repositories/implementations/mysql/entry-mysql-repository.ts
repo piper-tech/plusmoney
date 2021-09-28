@@ -1,7 +1,8 @@
 import { EntryData } from '@/entities/data-transfer-objects';
-import { EntryRepository, SaveResponse } from '@/repositories/entry-repository';
+import { EntryRepository, SaveResponse, GenericResponse } from '@/repositories/entry-repository';
 import { SaveError } from '@/repositories/errors';
 import { left, right } from '@/shared';
+import { GetEntryData } from '@/usecases/get-entry';
 import knex from './knex';
 
 export class EntryMysqlRepository implements EntryRepository {
@@ -13,5 +14,13 @@ export class EntryMysqlRepository implements EntryRepository {
       console.log(error);
       return left(new SaveError((error as Error).message));
     }
+  }
+
+  async find(data: GetEntryData): Promise<GenericResponse> {
+    const entries = await knex('entries').select<EntryData[]>().where(data);
+    if (entries.length === 0) {
+      return left(new Error());
+    }
+    return right(entries);
   }
 }
