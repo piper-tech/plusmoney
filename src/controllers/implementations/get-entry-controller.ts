@@ -12,6 +12,6 @@ export class GetEntryController implements Controller {
       return HttpHelper.badRequest(getEntryOrError.value);
     }
     const entries = getEntryOrError.value;
-    return HttpHelper.created(entries);
+    return HttpHelper.ok(entries);
   }
 }
