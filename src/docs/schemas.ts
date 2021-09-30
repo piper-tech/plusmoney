@@ -3,7 +3,8 @@ import {
   loginParamsSchema,
   accessTokenSchema,
   errorSchema,
-  userSchema
+  userSchema,
+  entrySchema
 } from './schemas/';
 
 export default {
@@ -11,5 +12,6 @@ export default {
   loginParams: loginParamsSchema,
   accessToken: accessTokenSchema,
   error: errorSchema,
-  user: userSchema
+  user: userSchema,
+  entry: entrySchema
 };
