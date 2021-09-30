@@ -5,7 +5,7 @@ import {
 } from './components/';
 
 export default {
-  securitySchemas: {
+  securitySchemes: {
     bearerAuth: bearerAuthComponent
   },
   badRequest: badRequestComponent,

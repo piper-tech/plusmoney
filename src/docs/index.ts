@@ -21,6 +21,10 @@ export default {
     {
       name: 'users',
       description: 'Rotas de usuário'
+    },
+    {
+      name: 'entries',
+      description: 'Rotas de entradas e saídas'
     }
   ],
   paths,

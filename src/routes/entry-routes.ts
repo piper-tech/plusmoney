@@ -4,6 +4,6 @@ import { routerAdapter, middlewareAdapter } from '@/routes/adapters';
 import { AuthUserMiddleware } from '@/middlewares/implementations';
 
 export default (router: Router) => {
-  router.post('/entry', middlewareAdapter(new AuthUserMiddleware()), routerAdapter(new CreateEntryController()));
-  router.get('/entry', middlewareAdapter(new AuthUserMiddleware()), routerAdapter(new GetEntryController()));
+  router.post('/entries', middlewareAdapter(new AuthUserMiddleware()), routerAdapter(new CreateEntryController()));
+  router.get('/entries', middlewareAdapter(new AuthUserMiddleware()), routerAdapter(new GetEntryController()));
 };
