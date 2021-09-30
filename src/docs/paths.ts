@@ -1,7 +1,13 @@
-import { logupPath, loginPath, usersPath } from './paths/';
+import {
+  logupPath,
+  loginPath,
+  usersPath,
+  entriesPath
+} from './paths/';
 
 export default {
   '/logup': logupPath,
   '/login': loginPath,
-  '/users': usersPath
+  '/users': usersPath,
+  '/entries': entriesPath
 };
