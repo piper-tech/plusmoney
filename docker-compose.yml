@@ -12,6 +12,7 @@ x-env_file:
 
 services:
   database:
+    container_name: plusmoney_database
     image: mysql:8.0
     env_file:
       *env_file
@@ -25,6 +26,7 @@ services:
       - database
 
   app:
+    container_name: plusmoney_app
     image: node:14.17-alpine
     env_file:
       *env_file
