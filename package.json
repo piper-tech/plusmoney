@@ -6,7 +6,11 @@
   "scripts": {
     "start": "npx ts-node src/server.ts",
     "dev": "npx ts-node-dev -r tsconfig-paths/register --transpile-only --ignore-watch node_modules src/server.ts",
-    "test": "jest"
+    "test": "jest",
+    "up": "docker-compose up",
+    "sh:app": "docker container exec -it plusmoney_app sh",
+    "sh:database": "docker container exec -it plusmoney_database sh",
+    "mysql": "docker container exec -it plusmoney_database mysql"
   },
   "repository": {
     "type": "git",
