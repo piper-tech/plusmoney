@@ -1,11 +1,11 @@
-import { AuthenticationProvider, AuthResponse } from '@/providers';
+import { AuthenticationProvider, AuthData } from '@/providers';
 import jwt from 'jsonwebtoken';
 const SECRET_TOKEN = process.env.SECRET_TOKEN as string;
 
 export class AuthenticationJwt implements AuthenticationProvider {
-  async auth(id: number): Promise<AuthResponse> {
+  async auth(id: number): Promise<AuthData> {
     const token = jwt.sign({ userId: id }, SECRET_TOKEN, { expiresIn: 3600 });
-    const authResponse: AuthResponse = {
+    const authResponse: AuthData = {
       accessToken: token
     };
     return authResponse;
