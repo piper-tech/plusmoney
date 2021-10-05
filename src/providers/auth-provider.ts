@@ -4,4 +4,5 @@ export interface AuthData {
 
 export interface AuthenticationProvider {
   auth(id: number): Promise<AuthData>
+  verify(accessToken: string): Promise<any | boolean>
 }

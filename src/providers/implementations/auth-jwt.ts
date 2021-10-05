@@ -11,11 +11,12 @@ export class AuthenticationJwt implements AuthenticationProvider {
     return authResponse;
   }
 
-  async verify(accessToken: string): Promise<boolean> {
+  async verify(accessToken: string): Promise<any | boolean> {
     try {
-      jwt.verify(accessToken, SECRET_TOKEN);
-      return true;
+      const decoded = await jwt.verify(accessToken, SECRET_TOKEN);
+      return decoded;
     } catch (error) {
+      console.log(error);
       return false;
     }
   }
