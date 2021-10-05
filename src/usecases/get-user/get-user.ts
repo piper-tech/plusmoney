@@ -12,15 +12,19 @@ export class GetUserUseCase {
   }
 
   async execute(data: GetUserData): Promise<GetUserResponse> {
-    if (!data.email) {
-      return left(new Error('missing params'));
+    console.log(data);
+    let userOrError = await this.userRepository.findByEmail(data.email as string);
+    if (userOrError.isRight()) {
+      const user = userOrError.value;
+      delete user.password;
+      return right(user);
     }
-    const userOrError = await this.userRepository.findByEmail(data.email);
-    if (userOrError.isLeft()) {
-      return left(new UserNotFoundError());
+    userOrError = await this.userRepository.findById(data.id as number);
+    if (userOrError.isRight()) {
+      const user = userOrError.value;
+      delete user.password;
+      return right(user);
     }
-    const user = userOrError.value;
-    delete user.password;
-    return right(user);
+    return left(new UserNotFoundError());
   }
 }
