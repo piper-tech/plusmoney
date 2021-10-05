@@ -1,7 +1,8 @@
 import {
   badRequestComponent,
   bearerAuthComponent,
-  unauthorizedComponent
+  unauthorizedComponent,
+  notFoundComponent
 } from './components/';
 
 export default {
@@ -9,5 +10,6 @@ export default {
     bearerAuth: bearerAuthComponent
   },
   badRequest: badRequestComponent,
-  unauthorized: unauthorizedComponent
+  unauthorized: unauthorizedComponent,
+  notFound: notFoundComponent
 };
