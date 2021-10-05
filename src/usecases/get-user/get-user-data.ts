@@ -1,3 +1,4 @@
 export interface GetUserData {
-  email: string;
+  email?: string;
+  id?: number;
 }
