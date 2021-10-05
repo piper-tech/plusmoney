@@ -23,6 +23,13 @@ export class HttpHelper {
     };
   }
 
+  static notFound(error: Error): HttpResponseError {
+    return {
+      statusCode: 404,
+      body: new BadRequest(error.message)
+    };
+  }
+
   static unauthorized(error: Error): HttpResponseError {
     return {
       statusCode: 401,
