@@ -6,9 +6,9 @@ export function routerAdapter(controller: Controller) {
     const request = {
       ...(req.body || {}),
       ...(req.params || {}),
-      ...(req.query || {}),
-      accessToken: req.headers?.authorization
+      ...(req.query || {})
     };
+    controller.accessToken = req.headers?.authorization
     const httpResponse = await controller.handler(request);
     if (httpResponse.statusCode >= 200 && httpResponse.statusCode <= 299) {
       return res.status(httpResponse.statusCode).json(httpResponse.body);
