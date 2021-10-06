@@ -1,7 +1,7 @@
-export const entriesPath = {
+export const categoriesPath = {
   post: {
-    tags: ['entries'],
-    summary: 'Rota para cadastrar uma entrada/saída',
+    tags: ['categories'],
+    summary: 'Rota para cadastrar uma categoria',
     security: [
       {
         bearerAuth: []
@@ -12,12 +12,12 @@ export const entriesPath = {
       content: {
         'application/json': {
           schema: {
-            $ref: '#/schemas/entry'
+            $ref: '#/schemas/category'
           }
         }
       }
     },
-    resopnses: {
+    responses: {
       201: {
         description: 'Cadastrado com sucesso'
       },
@@ -30,22 +30,33 @@ export const entriesPath = {
     }
   },
   get: {
-    tags: ['entries'],
-    summary: 'Rota para buscar entradas e saídas',
+    tags: ['categories'],
+    summary: 'Rota para buscar categorias',
     security: [
       {
         bearerAuth: []
       }
     ],
-    parameters: [{
-      in: 'query',
-      required: true,
-      name: 'userId',
-      description: 'Id do usuário que deseja buscar as entradas',
-      schema: {
-        type: 'number'
+    parameters: [
+      {
+        in: 'query',
+        name: 'userId',
+        required: true,
+        description: 'Id do usuário que deseja buscar as entradas',
+        schema: {
+          type: 'number'
+        }
+      },
+      {
+        in: 'query',
+        name: 'description',
+        required: false,
+        description: 'Descrição da entrada',
+        schema: {
+          type: 'string'
+        }
       }
-    }],
+    ],
     responses: {
       200: {
         description: 'Sucesso',
@@ -54,7 +65,7 @@ export const entriesPath = {
             schema: {
               type: 'array',
               items: {
-                $ref: '#/schemas/entry'
+                $ref: '#/schemas/category'
               }
             }
           }
