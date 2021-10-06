@@ -3,7 +3,8 @@ import {
   loginPath,
   usersPath,
   entriesPath,
-  mePath
+  mePath,
+  categoriesPath
 } from './paths/';
 
 export default {
@@ -11,5 +12,6 @@ export default {
   '/login': loginPath,
   '/me': mePath,
   '/users': usersPath,
-  '/entries': entriesPath
+  '/entries': entriesPath,
+  '/categories': categoriesPath
 };
