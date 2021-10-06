@@ -25,6 +25,10 @@ export default {
     {
       name: 'entries',
       description: 'Rotas de entradas e saídas'
+    },
+    {
+      name: 'categories',
+      description: 'Rotas de categorias'
     }
   ],
   paths,
