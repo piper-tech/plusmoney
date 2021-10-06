@@ -39,6 +39,7 @@ export const entriesPath = {
     ],
     parameters: [{
       in: 'query',
+      required: true,
       name: 'userId',
       description: 'Id do usuário que deseja buscar as entradas',
       schema: {
