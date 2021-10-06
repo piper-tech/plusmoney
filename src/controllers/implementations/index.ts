@@ -5,3 +5,4 @@ export * from './logup-controller';
 export * from './create-category-controller';
 export * from './get-entry-controller';
 export * from './me-user-controller';
+export * from './get-category-controller';
