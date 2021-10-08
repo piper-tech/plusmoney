@@ -1,4 +1,4 @@
 export interface CategoryData {
-  userId: number;
+  userId?: number;
   description: string;
 }
