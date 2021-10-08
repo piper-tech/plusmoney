@@ -19,7 +19,6 @@ export class CategoryMysqlRepository implements CategoryRepository {
 
   async find(data: GetCategoryData): Promise<FindResponse> {
     try {
-      console.log(data);
       const categories = await knex('categories').select<CategoryData[]>().where(data);
       if (categories.length === 0) {
         return left(new Error());

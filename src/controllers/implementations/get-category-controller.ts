@@ -12,6 +12,9 @@ export class GetCategoryController implements Controller {
       return HttpHelper.badRequest(getCategoryOrError.value);
     }
     const categories = getCategoryOrError.value;
+    categories.forEach(category => {
+      delete category.userId;
+    });
     return HttpHelper.ok(categories);
   }
 }
