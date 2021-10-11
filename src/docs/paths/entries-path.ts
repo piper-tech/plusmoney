@@ -2,6 +2,7 @@ export const entriesPath = {
   post: {
     tags: ['entries'],
     summary: 'Rota para cadastrar uma entrada/saída',
+    description: 'Todos os parametros do exemplo de request são obrigatórios, com excessão do "categoryId"',
     security: [
       {
         bearerAuth: []
@@ -54,7 +55,7 @@ export const entriesPath = {
             schema: {
               type: 'array',
               items: {
-                $ref: '#/schemas/entry'
+                $ref: '#/schemas/entryResponse'
               }
             }
           }

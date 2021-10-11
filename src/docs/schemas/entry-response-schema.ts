@@ -1,4 +1,4 @@
-export const entrySchema = {
+export const entryResponseSchema = {
   type: 'object',
   properties: {
     description: {
@@ -10,19 +10,23 @@ export const entrySchema = {
     date: {
       type: 'string'
     },
-    userId: {
-      type: 'number'
-    },
-    categoryId: {
-      type: 'string',
-      required: false
+    category: {
+      id: {
+        type: 'number'
+      },
+      description: {
+        type: 'string'
+      }
     }
   },
   example: {
     description: 'Aluguel',
     value: -1200,
     date: '30/09/2021',
-    userId: 1,
-    categoryId: 1
+    category: {
+      id: 1,
+      description: 'Gastos Residenciais'
+    },
+    type: 'output'
   }
 };
