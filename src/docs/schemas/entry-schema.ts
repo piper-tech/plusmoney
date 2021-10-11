@@ -7,7 +7,7 @@ export const entrySchema = {
     value: {
       type: 'number'
     },
-    data: {
+    date: {
       type: 'string'
     },
     userId: {
