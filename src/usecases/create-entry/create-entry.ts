@@ -18,6 +18,9 @@ export class CreateEntryUseCase {
     if (!data.userId) {
       return left(new Error('user id not provided'));
     }
+    if (!data.categoryId) {
+      delete data.categoryId;
+    }
     await this.entryRepository.save(data);
     return right(data);
   }
