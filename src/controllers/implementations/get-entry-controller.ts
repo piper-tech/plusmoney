@@ -11,7 +11,7 @@ export class GetEntryController implements Controller {
   async handler(request: GetEntryData): Promise<HttpResponse> {
     const getEntryOrError = await this.getEntry.execute(request);
     if (getEntryOrError.isLeft()) {
-      return HttpHelper.badRequest(getEntryOrError.value);
+      return HttpHelper.ok([]);
     }
     const entries = await Promise.all(
       getEntryOrError.value.map(async (entry) => {

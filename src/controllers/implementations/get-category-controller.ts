@@ -9,7 +9,7 @@ export class GetCategoryController implements Controller {
   async handler(request: GetCategoryData): Promise<HttpResponse> {
     const getCategoryOrError = await this.getCategory.execute(request);
     if (getCategoryOrError.isLeft()) {
-      return HttpHelper.badRequest(getCategoryOrError.value);
+      return HttpHelper.ok([]);
     }
     const categories = getCategoryOrError.value;
     categories.forEach(category => {
