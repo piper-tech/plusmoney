@@ -1,4 +1,5 @@
 import { Controller, HttpResponse } from '@/controllers';
+import { EntryData } from '@/entities/data-transfer-objects';
 import { CategoryMysqlRepository, EntryMysqlRepository } from '@/repositories/implementations';
 import { GetCategoryUseCase } from '@/usecases/get-category';
 import { GetEntryData, GetEntryUseCase } from '@/usecases/get-entry';
@@ -28,6 +29,24 @@ export class GetEntryController implements Controller {
         return entry;
       })
     );
-    return HttpHelper.ok(entries);
+    const resume = this.calculateResume(entries);
+    return HttpHelper.ok({ entries, resume });
+  }
+
+  private calculateResume(entries: EntryData[]) {
+    const resume = {
+      total_entries: 0,
+      total_outputs: 0,
+      total: 0
+    };
+    for (const entry of entries) {
+      if (entry.type === 'entry') {
+        resume.total_entries += entry.value;
+      } else {
+        resume.total_outputs += entry.value;
+      }
+    }
+    resume.total = resume.total_entries + resume.total_outputs;
+    return resume;
   }
 }
