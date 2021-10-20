@@ -5,8 +5,10 @@ import { SaveError } from './errors';
 
 export type SaveResponse = Either<SaveError, EntryData>;
 export type GenericResponse = Either<Error, EntryData[]>;
+export type UpdateResponse = Either<Error, EntryData>;
 
 export interface EntryRepository {
   save(data: EntryData): Promise<SaveResponse>
   find(data: GetEntryData): Promise<GenericResponse>;
+  update(data: EntryData): Promise<UpdateResponse>;
 }
