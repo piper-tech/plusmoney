@@ -1,5 +1,5 @@
 import { EntryData } from '@/entities/data-transfer-objects';
-import { EntryRepository, SaveResponse, GenericResponse } from '@/repositories/entry-repository';
+import { EntryRepository, SaveResponse, GenericResponse, UpdateResponse } from '@/repositories/entry-repository';
 import { SaveError } from '@/repositories/errors';
 import { left, right } from '@/shared';
 import { GetEntryData } from '@/usecases/get-entry';
@@ -29,5 +29,15 @@ export class EntryMysqlRepository implements EntryRepository {
       }
     });
     return right(entries);
+  }
+
+  async update(data: EntryData): Promise<UpdateResponse> {
+    try {
+      await knex('entries').where('id', '=', data.id as number).update(data);
+      return right(data);
+    } catch (error) {
+      console.log(error);
+      return left(new Error());
+    }
   }
 }
