@@ -12,7 +12,10 @@ export class GetEntryController implements Controller {
   async handler(request: GetEntryData): Promise<HttpResponse> {
     const getEntryOrError = await this.getEntry.execute(request);
     if (getEntryOrError.isLeft()) {
-      return HttpHelper.ok([]);
+      return HttpHelper.ok({
+        entries: [],
+        resume: { total_entries: 0, total_outputs: 0, total: 0 }
+      });
     }
     const entries = await Promise.all(
       getEntryOrError.value.map(async (entry) => {
