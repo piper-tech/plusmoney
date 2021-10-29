@@ -52,12 +52,7 @@ export const entriesPath = {
         description: 'Sucesso',
         content: {
           'application/json': {
-            schema: {
-              type: 'array',
-              items: {
-                $ref: '#/schemas/entryResponse'
-              }
-            }
+            $ref: '#/schemas/entryResponse'
           }
         }
       },
