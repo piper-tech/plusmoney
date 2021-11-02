@@ -1,6 +1,6 @@
 import { CategoryData } from '@/entities/data-transfer-objects';
 import { FindResponse } from '@/repositories';
-import { CategoryRepository, SaveResponse } from '@/repositories/category-repository';
+import { CategoryRepository, SaveResponse, UpdateResponse } from '@/repositories/category-repository';
 import { left, right } from '@/shared';
 import { GetCategoryData } from '@/usecases/get-category';
 
@@ -21,5 +21,14 @@ export class CategoryMemoryRepository implements CategoryRepository {
       return left(new Error());
     }
     return right(categories);
+  }
+
+  async update(data: CategoryData): Promise<UpdateResponse> {
+    this.categoryData.forEach((category) => {
+      if (category.id === data.id) {
+        category = data;
+      }
+    });
+    return right(data);
   }
 }
