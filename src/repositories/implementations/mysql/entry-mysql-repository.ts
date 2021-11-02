@@ -33,7 +33,10 @@ export class EntryMysqlRepository implements EntryRepository {
 
   async update(data: EntryData): Promise<UpdateResponse> {
     try {
-      await knex('entries').where('id', '=', data.id as number).update(data);
+      const affected = await knex('entries').where('id', '=', data.id as number).update(data);
+      if (affected === 0) {
+        return left(new Error('Entry not found'));
+      }
       return right(data);
     } catch (error) {
       console.log(error);
