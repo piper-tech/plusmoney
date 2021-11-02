@@ -63,5 +63,48 @@ export const entriesPath = {
         $ref: '#/components/unauthorized'
       }
     }
+  },
+  put: {
+    tags: ['entries'],
+    summary: 'Rota para editar entradas e saídas',
+    security: [
+      {
+        bearerAuth: []
+      }
+    ],
+    requestBody: {
+      required: true,
+      content: {
+        'application/json': {
+          schema: {
+            $ref: '#/schemas/entry'
+          }
+        }
+      }
+    },
+    parameters: [{
+      in: 'path',
+      required: true,
+      name: 'categoryId',
+      description: 'Id da categoria que deseja editar',
+      schema: {
+        type: 'number'
+      }
+    }],
+    responses: {
+      200: {
+        description: 'Sucesso',
+        content: {
+          'application/json': {
+          }
+        }
+      },
+      400: {
+        $ref: '#/components/badRequest'
+      },
+      401: {
+        $ref: '#/components/unauthorized'
+      }
+    }
   }
 };
