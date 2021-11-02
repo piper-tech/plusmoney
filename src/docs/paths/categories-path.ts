@@ -78,5 +78,44 @@ export const categoriesPath = {
         $ref: '#/components/unauthorized'
       }
     }
+  },
+  put: {
+    tags: ['categories'],
+    summary: 'Rota para editar uma categoria',
+    security: [
+      {
+        bearerAuth: []
+      }
+    ],
+    requestBody: {
+      required: true,
+      content: {
+        'application/json': {
+          schema: {
+            $ref: '#/schemas/category'
+          }
+        }
+      }
+    },
+    parameters: [{
+      in: 'path',
+      required: true,
+      name: 'id',
+      description: 'Id da categoria que deseja editar',
+      schema: {
+        type: 'number'
+      }
+    }],
+    responses: {
+      201: {
+        description: 'Sucesso'
+      },
+      400: {
+        $ref: '#/components/badRequest'
+      },
+      401: {
+        $ref: '#/components/unauthorized'
+      }
+    }
   }
 };

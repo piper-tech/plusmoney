@@ -85,8 +85,8 @@ export const entriesPath = {
     parameters: [{
       in: 'path',
       required: true,
-      name: 'categoryId',
-      description: 'Id da categoria que deseja editar',
+      name: 'id',
+      description: 'Id da entrada que deseja editar',
       schema: {
         type: 'number'
       }
