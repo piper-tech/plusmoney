@@ -14,7 +14,7 @@ export class GetEntryController implements Controller {
     if (getEntryOrError.isLeft()) {
       return HttpHelper.ok({
         entries: [],
-        resume: { total_entries: 0, total_outputs: 0, total: 0 }
+        abstract: { total_entries: 0, total_outputs: 0, total: 0 }
       });
     }
     const entries = await Promise.all(
@@ -32,24 +32,24 @@ export class GetEntryController implements Controller {
         return entry;
       })
     );
-    const resume = this.calculateResume(entries);
-    return HttpHelper.ok({ entries, resume });
+    const abstract = this.calculateAbstract(entries);
+    return HttpHelper.ok({ entries, abstract });
   }
 
-  private calculateResume(entries: EntryData[]) {
-    const resume = {
+  private calculateAbstract(entries: EntryData[]) {
+    const abstract = {
       total_entries: 0,
       total_outputs: 0,
       total: 0
     };
     for (const entry of entries) {
       if (entry.type === 'entry') {
-        resume.total_entries += entry.value;
+        abstract.total_entries += entry.value;
       } else {
-        resume.total_outputs += entry.value;
+        abstract.total_outputs += entry.value;
       }
     }
-    resume.total = resume.total_entries + resume.total_outputs;
-    return resume;
+    abstract.total = abstract.total_entries + abstract.total_outputs;
+    return abstract;
   }
 }
