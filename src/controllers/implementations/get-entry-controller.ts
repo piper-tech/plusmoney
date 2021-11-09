@@ -14,7 +14,8 @@ export class GetEntryController implements Controller {
     if (getEntryOrError.isLeft()) {
       return HttpHelper.ok({
         entries: [],
-        abstract: { total_entries: 0, total_outputs: 0, total: 0 }
+        abstract: { total_entries: 0, total_outputs: 0, total: 0 },
+        abstract_by_category: []
       });
     }
     const entries = await Promise.all(
@@ -33,7 +34,8 @@ export class GetEntryController implements Controller {
       })
     );
     const abstract = this.calculateAbstract(entries);
-    return HttpHelper.ok({ entries, abstract });
+    const abstractByCategory = this.calculateAbstractByCategory(entries);
+    return HttpHelper.ok({ entries, abstract, abstract_by_category: abstractByCategory });
   }
 
   private calculateAbstract(entries: EntryData[]) {
@@ -50,6 +52,22 @@ export class GetEntryController implements Controller {
       }
     }
     abstract.total = abstract.total_entries + abstract.total_outputs;
+    return abstract;
+  }
+
+  private calculateAbstractByCategory(entries: EntryData[]) {
+    const accumulator: any = {};
+    for (const entry of entries) {
+      const key = entry.category?.description as string;
+      if (accumulator[key]) {
+        accumulator[key] += entry.value;
+      } else {
+        accumulator[key] = entry.value;
+      }
+    }
+    const abstract = Object.entries(accumulator).map((acc) => {
+      return { description: acc[0], value: acc[1] };
+    });
     return abstract;
   }
 }
