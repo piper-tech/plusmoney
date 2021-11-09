@@ -19,6 +19,12 @@ export const entryResponseSchema = {
       total: -1200,
       total_entries: 0,
       total_outputs: -1200
-    }
+    },
+    abstract_by_category: [
+      {
+        description: 'Gastos Residenciais',
+        value: -1200
+      }
+    ]
   }
 };
