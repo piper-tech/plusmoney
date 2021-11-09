@@ -15,7 +15,7 @@ export const entryResponseSchema = {
         type: 'output'
       }
     ],
-    resume: {
+    abstract: {
       total: -1200,
       total_entries: 0,
       total_outputs: -1200
