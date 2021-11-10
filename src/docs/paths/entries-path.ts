@@ -106,5 +106,38 @@ export const entriesPath = {
         $ref: '#/components/unauthorized'
       }
     }
+  },
+  delete: {
+    tags: ['entries'],
+    summary: 'Rota para deletar entradas e saídas',
+    security: [
+      {
+        bearerAuth: []
+      }
+    ],
+    parameters: [{
+      in: 'path',
+      required: true,
+      name: 'id',
+      description: 'Id da entrada que deseja editar',
+      schema: {
+        type: 'number'
+      }
+    }],
+    responses: {
+      200: {
+        description: 'Sucesso',
+        content: {
+          'application/json': {
+          }
+        }
+      },
+      400: {
+        $ref: '#/components/badRequest'
+      },
+      401: {
+        $ref: '#/components/unauthorized'
+      }
+    }
   }
 };
