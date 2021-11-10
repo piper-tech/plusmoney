@@ -1,5 +1,5 @@
 import { EntryData } from '@/entities/data-transfer-objects';
-import { GenericResponse } from '@/repositories';
+import { DeleteResponse, GenericResponse } from '@/repositories';
 import { EntryRepository, SaveResponse, UpdateResponse } from '@/repositories/entry-repository';
 import { left, right } from '@/shared';
 import { GetEntryData } from '@/usecases/get-entry';
@@ -28,5 +28,9 @@ export class EntryMemoryRepository implements EntryRepository {
       }
     });
     return right(data);
+  }
+
+  async delete(id: number): Promise<DeleteResponse> {
+    return right(0);
   }
 }
