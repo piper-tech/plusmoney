@@ -1,5 +1,5 @@
 import { EntryData } from '@/entities/data-transfer-objects';
-import { EntryRepository, SaveResponse, GenericResponse, UpdateResponse } from '@/repositories/entry-repository';
+import { EntryRepository, SaveResponse, GenericResponse, UpdateResponse, DeleteResponse } from '@/repositories/entry-repository';
 import { SaveError } from '@/repositories/errors';
 import { left, right } from '@/shared';
 import { GetEntryData } from '@/usecases/get-entry';
@@ -38,6 +38,16 @@ export class EntryMysqlRepository implements EntryRepository {
         return left(new Error('Entry not found'));
       }
       return right(data);
+    } catch (error) {
+      console.log(error);
+      return left(new Error());
+    }
+  }
+
+  async delete(id: number): Promise<DeleteResponse> {
+    try {
+      await knex('entries').where('id', '=', id).del();
+      return right(id);
     } catch (error) {
       console.log(error);
       return left(new Error());

@@ -7,3 +7,4 @@ export * from './get-entry-controller';
 export * from './me-user-controller';
 export * from './get-category-controller';
 export * from './update-entry-controller';
+export * from './delete-entry-controller';
