@@ -1,6 +1,6 @@
 import { CategoryData } from '@/entities/data-transfer-objects';
 import { FindResponse } from '@/repositories';
-import { CategoryRepository, SaveResponse, UpdateResponse } from '@/repositories/category-repository';
+import { CategoryRepository, DeleteResponse, SaveResponse, UpdateResponse } from '@/repositories/category-repository';
 import { left, right } from '@/shared';
 import { GetCategoryData } from '@/usecases/get-category';
 
@@ -30,5 +30,9 @@ export class CategoryMemoryRepository implements CategoryRepository {
       }
     });
     return right(data);
+  }
+
+  async delete(id: number): Promise<DeleteResponse> {
+    return right(0);
   }
 }
