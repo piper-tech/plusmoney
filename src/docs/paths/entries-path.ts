@@ -119,7 +119,7 @@ export const entriesPath = {
       in: 'path',
       required: true,
       name: 'id',
-      description: 'Id da entrada que deseja editar',
+      description: 'Id da entrada que deseja deletar',
       schema: {
         type: 'number'
       }

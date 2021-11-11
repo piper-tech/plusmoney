@@ -117,5 +117,34 @@ export const categoriesPath = {
         $ref: '#/components/unauthorized'
       }
     }
+  },
+  delete: {
+    tags: ['categories'],
+    summary: 'Rota para deletar uma categoria',
+    security: [
+      {
+        bearerAuth: []
+      }
+    ],
+    parameters: [{
+      in: 'path',
+      required: true,
+      name: 'id',
+      description: 'Id da categoria que deseja deletar',
+      schema: {
+        type: 'number'
+      }
+    }],
+    responses: {
+      201: {
+        description: 'Sucesso'
+      },
+      400: {
+        $ref: '#/components/badRequest'
+      },
+      401: {
+        $ref: '#/components/unauthorized'
+      }
+    }
   }
 };
