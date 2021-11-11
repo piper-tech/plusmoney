@@ -1,6 +1,6 @@
 import { CategoryData } from '@/entities/data-transfer-objects';
 import { FindResponse } from '@/repositories';
-import { CategoryRepository, SaveResponse, UpdateResponse } from '@/repositories/category-repository';
+import { CategoryRepository, DeleteResponse, SaveResponse, UpdateResponse } from '@/repositories/category-repository';
 import { SaveError } from '@/repositories/errors';
 import { left, right } from '@/shared';
 import { GetCategoryData } from '@/usecases/get-category';
@@ -37,6 +37,16 @@ export class CategoryMysqlRepository implements CategoryRepository {
         return left(new Error('Category not found'));
       }
       return right(data);
+    } catch (error) {
+      console.log(error);
+      return left(new Error());
+    }
+  }
+
+  async delete(id: number): Promise<DeleteResponse> {
+    try {
+      await knex('categories').where('id', '=', id).del();
+      return right(id);
     } catch (error) {
       console.log(error);
       return left(new Error());
