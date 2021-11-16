@@ -28,7 +28,7 @@ export class EntryMysqlRepository implements EntryRepository {
         .whereBetween('date', [dataDate.startDate, dataDate.endDate])
         .orderBy('date', 'desc');
     } else {
-      entries = await knex('entries').select<EntryData[]>().where(data);
+      entries = await knex('entries').select<EntryData[]>().where(data).orderBy('date', 'desc');
     }
     if (entries.length === 0) {
       return left(new Error());
