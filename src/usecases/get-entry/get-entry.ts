@@ -12,7 +12,7 @@ export class GetEntryUseCase {
   }
 
   async execute(data: GetEntryData): Promise<GetEntryResponse> {
-    if (!data.id && !data.userId && !data.categoryId) {
+    if (!data.id && !data.userId && !data.categoryId && !data.startDate && !data.endDate) {
       return left(new Error('missing params'));
     }
     const entriesOrError = await this.entryRepository.find(data);

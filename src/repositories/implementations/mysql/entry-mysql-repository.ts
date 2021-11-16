@@ -17,7 +17,19 @@ export class EntryMysqlRepository implements EntryRepository {
   }
 
   async find(data: GetEntryData): Promise<GenericResponse> {
-    const entries = await knex('entries').select<EntryData[]>().where(data);
+    const dataDate = { startDate: data.startDate, endDate: data.endDate };
+    delete data.startDate;
+    delete data.endDate;
+    let entries: EntryData[];
+    if (dataDate.startDate && dataDate.endDate) {
+      entries = await knex('entries')
+        .select<EntryData[]>()
+        .where(data)
+        .whereBetween('date', [dataDate.startDate, dataDate.endDate])
+        .orderBy('date', 'desc');
+    } else {
+      entries = await knex('entries').select<EntryData[]>().where(data);
+    }
     if (entries.length === 0) {
       return left(new Error());
     }

@@ -21,7 +21,10 @@ export class CreateEntryUseCase {
     if (!data.categoryId) {
       delete data.categoryId;
     }
-    await this.entryRepository.save(data);
+    const createdOrError = await this.entryRepository.save(data);
+    if (createdOrError.isLeft()) {
+      return left(new Error('there was an error in the database operation'));
+    }
     return right(data);
   }
 }
