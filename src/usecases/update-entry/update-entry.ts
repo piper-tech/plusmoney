@@ -19,6 +19,7 @@ export class UpdateEntryUseCase {
     if (!data.id) {
       return left(new Error('entry id not provided'));
     }
+    data.date = entryOrError.value.date;
     await this.entryRepository.update(data);
     delete data.id;
     return right(data);

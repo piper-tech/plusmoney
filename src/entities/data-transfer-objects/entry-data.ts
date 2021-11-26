@@ -4,7 +4,7 @@ export interface EntryData {
   id?: number;
   description: string;
   value: number;
-  date: Date;
+  date: string;
   userId?: number;
   categoryId?: number;
   category?: GetCategoryData;
