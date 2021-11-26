@@ -16,7 +16,11 @@ export class Entry {
     return this.entryDate;
   }
 
-  static create(description: string, value: number, entryDate: string): Either<InvalidEntryError, Entry> {
+  get entryValue() {
+    return this.value;
+  }
+
+  static create(description: string, value: number | string, entryDate: string): Either<InvalidEntryError, Entry> {
     if (!description) {
       return left(new InvalidEntryError());
     }
@@ -27,7 +31,15 @@ export class Entry {
       return left(new InvalidEntryError());
     }
     entryDate = Entry.validateDate(entryDate);
+    value = Entry.validateValue(value);
     return right(new Entry(description, value, entryDate));
+  }
+
+  static validateValue(value: number | string): number {
+    if (typeof value === 'string') {
+      return parseFloat(value.replace(',', '.'));
+    }
+    return value;
   }
 
   static validateDate(date: string) {
