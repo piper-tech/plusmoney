@@ -22,6 +22,7 @@ export class CreateEntryUseCase {
       delete data.categoryId;
     }
     data.date = entryOrError.value.date;
+    data.value = entryOrError.value.entryValue;
     const createdOrError = await this.entryRepository.save(data);
     if (createdOrError.isLeft()) {
       return left(new Error('there was an error in the database operation'));
