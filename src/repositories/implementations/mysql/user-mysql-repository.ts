@@ -1,12 +1,16 @@
 import { UserData } from '@/entities/data-transfer-objects';
-import { UserRepository, SaveResponse, FindByEmailResponse } from '@/repositories';
+import {
+  UserRepository,
+  UserSaveResponse,
+  UserFindByEmailResponse,
+  UserFindByIdResponse
+} from '@/repositories';
 import { SaveError, FindByEmailError, FindByIdError } from '@/repositories/errors';
-import { FindByIdResponse } from '@/repositories/user-repository';
 import { left, right } from '@/shared';
 import knex from './knex';
 
 export class UserMysqlRepository implements UserRepository {
-  async save(data: UserData): Promise<SaveResponse> {
+  async save(data: UserData): Promise<UserSaveResponse> {
     try {
       const ids = await knex('users').insert(data);
       data.id = ids[0];
@@ -17,7 +21,7 @@ export class UserMysqlRepository implements UserRepository {
     }
   }
 
-  async findByEmail(email: string): Promise<FindByEmailResponse> {
+  async findByEmail(email: string): Promise<UserFindByEmailResponse> {
     try {
       const user = await knex('users').select().where({ email: email });
       if (!user[0]) {
@@ -30,7 +34,7 @@ export class UserMysqlRepository implements UserRepository {
     }
   }
 
-  async findById(id: number): Promise<FindByIdResponse> {
+  async findById(id: number): Promise<UserFindByIdResponse> {
     try {
       const user = await knex('users').select().where({ id: id });
       console.log(user);

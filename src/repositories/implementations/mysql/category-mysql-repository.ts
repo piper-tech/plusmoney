@@ -1,13 +1,18 @@
 import { CategoryData } from '@/entities/data-transfer-objects';
-import { FindResponse } from '@/repositories';
-import { CategoryRepository, DeleteResponse, SaveResponse, UpdateResponse } from '@/repositories/category-repository';
+import {
+  CategoryRepository,
+  CategorySaveResponse,
+  CategoryFindResponse,
+  CategoryUpdateResponse,
+  CategoryDeleteResponse
+} from '@/repositories';
 import { SaveError } from '@/repositories/errors';
 import { left, right } from '@/shared';
 import { GetCategoryData } from '@/usecases/get-category';
 import knex from './knex';
 
 export class CategoryMysqlRepository implements CategoryRepository {
-  async save(data: CategoryData): Promise<SaveResponse> {
+  async save(data: CategoryData): Promise<CategorySaveResponse> {
     try {
       await knex('categories').insert(data);
       return right(data);
@@ -17,7 +22,7 @@ export class CategoryMysqlRepository implements CategoryRepository {
     }
   }
 
-  async find(data: GetCategoryData): Promise<FindResponse> {
+  async find(data: GetCategoryData): Promise<CategoryFindResponse> {
     try {
       const categories = await knex('categories').select<CategoryData[]>().where(data);
       if (categories.length === 0) {
@@ -30,7 +35,7 @@ export class CategoryMysqlRepository implements CategoryRepository {
     }
   }
 
-  async update(data: CategoryData): Promise<UpdateResponse> {
+  async update(data: CategoryData): Promise<CategoryUpdateResponse> {
     try {
       const affected = await knex('categories').where('id', '=', data.id as number).update(data);
       if (affected === 0) {
@@ -43,7 +48,7 @@ export class CategoryMysqlRepository implements CategoryRepository {
     }
   }
 
-  async delete(id: number): Promise<DeleteResponse> {
+  async delete(id: number): Promise<CategoryDeleteResponse> {
     try {
       await knex('categories').where('id', '=', id).del();
       return right(id);

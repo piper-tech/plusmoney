@@ -3,14 +3,14 @@ import { Either } from '@/shared';
 import { GetEntryData } from '@/usecases/get-entry';
 import { SaveError } from './errors';
 
-export type SaveResponse = Either<SaveError, EntryData>;
-export type GenericResponse = Either<Error, EntryData[]>;
-export type UpdateResponse = Either<Error, EntryData>;
-export type DeleteResponse = Either<Error, number>;
+export type EntrySaveResponse = Either<SaveError, EntryData>;
+export type EntryGenericResponse = Either<Error, EntryData[]>;
+export type EntryUpdateResponse = Either<Error, EntryData>;
+export type EntryDeleteResponse = Either<Error, number>;
 
 export interface EntryRepository {
-  save(data: EntryData): Promise<SaveResponse>
-  find(data: GetEntryData): Promise<GenericResponse>;
-  update(data: EntryData): Promise<UpdateResponse>;
-  delete(id: number): Promise<DeleteResponse>;
+  save(data: EntryData): Promise<EntrySaveResponse>
+  find(data: GetEntryData): Promise<EntryGenericResponse>;
+  update(data: EntryData): Promise<EntryUpdateResponse>;
+  delete(id: number): Promise<EntryDeleteResponse>;
 }
