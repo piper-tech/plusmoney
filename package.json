@@ -4,8 +4,9 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "npx ts-node src/server.ts",
+    "start": "node dist/src/server.js",
     "dev": "npx ts-node-dev -r tsconfig-paths/register --transpile-only --ignore-watch node_modules src/server.ts",
+    "build": "tsc --build tsconfig-build.json",
     "test": "jest",
     "up": "docker-compose up",
     "sh:app": "docker container exec -it plusmoney_app sh",
