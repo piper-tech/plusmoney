@@ -14,7 +14,8 @@ import knex from './knex';
 export class CategoryMysqlRepository implements CategoryRepository {
   async save(data: CategoryData): Promise<CategorySaveResponse> {
     try {
-      await knex('categories').insert(data);
+      const ids = await knex('categories').insert(data);
+      data.id = ids[0];
       return right(data);
     } catch (error) {
       console.log(error);

@@ -1,6 +1,6 @@
 import { Controller, HttpResponse } from '@/controllers';
 import { AuthenticateUserUseCase, AuthUserData } from '@/usecases/auth-user';
-import { UserMysqlRepository } from '@/repositories/implementations';
+import { CategoryMysqlRepository, UserMysqlRepository } from '@/repositories/implementations';
 import { AuthenticationJwt } from '@/providers/implementations';
 import { HttpHelper } from '@/controllers/helpers';
 import { CreateUserUseCase } from '@/usecases/create-user';
@@ -8,7 +8,7 @@ import { UserData } from '@/entities/data-transfer-objects';
 
 export class LogupController implements Controller {
   private authenticateUser = new AuthenticateUserUseCase(new AuthenticationJwt(), new UserMysqlRepository());
-  private createUser = new CreateUserUseCase(new UserMysqlRepository());
+  private createUser = new CreateUserUseCase(new UserMysqlRepository(), new CategoryMysqlRepository());
 
   async handler(request: UserData): Promise<HttpResponse> {
     try {

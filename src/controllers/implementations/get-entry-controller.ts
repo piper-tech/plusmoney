@@ -18,24 +18,28 @@ export class GetEntryController implements Controller {
         abstract_by_category: []
       });
     }
-    const entries = await Promise.all(
-      getEntryOrError.value.map(async (entry) => {
-        const categoryOrError = await this.getCategory.execute({ id: entry.categoryId as number, userId: entry.userId });
-        if (categoryOrError.isLeft()) {
-          entry.category = { description: 'Não categorizado' };
-        } else {
-          const category = categoryOrError.value[0];
-          entry.category = { description: category.description };
-        }
-        delete entry.userId;
-        entry.category.id = entry.categoryId;
-        delete entry.categoryId;
-        return entry;
-      })
-    );
+    const entries = await this.buildEntriesResponse(getEntryOrError.value);
     const abstract = this.calculateAbstract(entries);
     const abstractByCategory = this.calculateAbstractByCategory(entries);
     return HttpHelper.ok({ entries, abstract, abstract_by_category: abstractByCategory });
+  }
+
+  private buildEntriesResponse(entries: EntryData[]): Promise<EntryData[]> {
+    const entriesWithCategories = entries.map(async (entry) => {
+      const categoryOrError = await this.getCategory.execute({ id: entry.categoryId as number, userId: entry.userId });
+      if (categoryOrError.isLeft()) {
+        entry.category = { description: 'Não categorizado' };
+      } else {
+        const category = categoryOrError.value[0];
+        entry.category = { description: category.description };
+      }
+      delete entry.userId;
+      entry.category.id = entry.categoryId;
+      delete entry.categoryId;
+      return entry;
+    });
+
+    return Promise.all(entriesWithCategories);
   }
 
   private calculateAbstract(entries: EntryData[]) {

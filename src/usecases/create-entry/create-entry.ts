@@ -1,13 +1,16 @@
 import { Entry } from '@/entities';
 import { EntryData } from '@/entities/data-transfer-objects';
-import { EntryRepository } from '@/repositories';
+import { CategoryRepository, EntryRepository } from '@/repositories';
 import { left, right } from '@/shared';
 import { CreateEntryResponse } from './create-entry-response';
 
 export class CreateEntryUseCase {
-  private entryRepository: EntryRepository
-  constructor(entryRepository: EntryRepository) {
+  private entryRepository: EntryRepository;
+  private categoryRepository: CategoryRepository;
+
+  constructor(entryRepository: EntryRepository, categoryRepository: CategoryRepository) {
     this.entryRepository = entryRepository;
+    this.categoryRepository = categoryRepository;
   }
 
   async execute(data: EntryData): Promise<CreateEntryResponse> {
@@ -19,7 +22,17 @@ export class CreateEntryUseCase {
       return left(new Error('user id not provided'));
     }
     if (!data.categoryId) {
-      delete data.categoryId;
+      const findedCategoryOrError = await this.categoryRepository.find({ userId: data.userId, description: 'Não categorizado' });
+      if (findedCategoryOrError.isLeft()) {
+        const createdCategoryOrError = await this.categoryRepository.save({ userId: data.userId, description: 'Não categorizado' });
+        if (createdCategoryOrError.isLeft()) {
+          return left(new Error('there was an error registering the entry'));
+        } else {
+          data.categoryId = createdCategoryOrError.value.id;
+        }
+      } else {
+        data.categoryId = findedCategoryOrError.value[0].id;
+      }
     }
     data.date = entryOrError.value.date;
     data.value = entryOrError.value.entryValue;
