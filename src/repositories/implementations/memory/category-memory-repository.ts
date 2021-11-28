@@ -1,18 +1,23 @@
 import { CategoryData } from '@/entities/data-transfer-objects';
-import { FindResponse } from '@/repositories';
-import { CategoryRepository, DeleteResponse, SaveResponse, UpdateResponse } from '@/repositories/category-repository';
+import {
+  CategoryRepository,
+  CategorySaveResponse,
+  CategoryFindResponse,
+  CategoryUpdateResponse,
+  CategoryDeleteResponse
+} from '@/repositories';
 import { left, right } from '@/shared';
 import { GetCategoryData } from '@/usecases/get-category';
 
 export class CategoryMemoryRepository implements CategoryRepository {
   private categoryData: CategoryData[] = [];
 
-  async save(data: CategoryData): Promise<SaveResponse> {
+  async save(data: CategoryData): Promise<CategorySaveResponse> {
     this.categoryData.push(data);
     return right(data);
   }
 
-  async find(data: GetCategoryData): Promise<FindResponse> {
+  async find(data: GetCategoryData): Promise<CategoryFindResponse> {
     const categories = this.categoryData.filter(category =>
       category.description === data.description ||
       category.userId === data.userId
@@ -23,7 +28,7 @@ export class CategoryMemoryRepository implements CategoryRepository {
     return right(categories);
   }
 
-  async update(data: CategoryData): Promise<UpdateResponse> {
+  async update(data: CategoryData): Promise<CategoryUpdateResponse> {
     this.categoryData.forEach((category) => {
       if (category.id === data.id) {
         category = data;
@@ -32,7 +37,7 @@ export class CategoryMemoryRepository implements CategoryRepository {
     return right(data);
   }
 
-  async delete(id: number): Promise<DeleteResponse> {
+  async delete(id: number): Promise<CategoryDeleteResponse> {
     return right(0);
   }
 }
