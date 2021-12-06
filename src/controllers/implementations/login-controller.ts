@@ -1,11 +1,15 @@
 import { Controller, HttpResponse } from '@/controllers';
 import { AuthenticateUserUseCase, AuthUserData } from '@/usecases/auth-user';
 import { UserMysqlRepository } from '@/repositories/implementations';
-import { AuthenticationJwt } from '@/providers/implementations';
+import { AuthenticationJwt, BCryptProvider } from '@/providers/implementations';
 import { HttpHelper } from '@/controllers/helpers';
 
 export class LoginController implements Controller {
-  private authenticateUser = new AuthenticateUserUseCase(new AuthenticationJwt(), new UserMysqlRepository());
+  private authenticateUser = new AuthenticateUserUseCase(
+    new AuthenticationJwt(),
+    new UserMysqlRepository(),
+    new BCryptProvider()
+  );
 
   async handler(request: AuthUserData): Promise<HttpResponse> {
     try {
