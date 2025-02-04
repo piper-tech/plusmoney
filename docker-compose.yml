@@ -1,4 +1,4 @@
-version: '3'
+# version: '3'
 
 volumes:
   database:
@@ -6,17 +6,15 @@ volumes:
 networks:
   database:
 
-x-env_file:
-  &env_file
+x-env_file: &env_file
   - ./.env
 
 services:
   database:
     container_name: plusmoney_database
     image: mysql:8.0
-    env_file:
-      *env_file
-    environment: 
+    env_file: *env_file
+    environment:
       - MYSQL_ALLOW_EMPTY_PASSWORD=yes
     volumes:
       - database:/var/lib/mysql
@@ -28,15 +26,14 @@ services:
   app:
     container_name: plusmoney_app
     image: node:14.17-alpine
-    env_file:
-      *env_file
+    env_file: *env_file
     volumes:
       - ./:/home/app
     working_dir: /home/app
     command: sh -c "npm install && npm run dev"
     ports:
       - 3000:3000
-    depends_on: 
+    depends_on:
       - database
     networks:
       - database
